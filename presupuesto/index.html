@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documento Privado | Ian Mazzi</title>
+    
+    <meta name="robots" content="noindex, nofollow">
+
+    <style>
+        /* --- LÓGICA DE VISUALIZACIÓN (EL CEREBRO DE LA PÁGINA) --- */
+        
+        body {
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0; padding: 0;
+            color: #334155; line-height: 1.5;
+            min-height: 100vh;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        /* 1. EL MENSAJE DE SEGURIDAD */
+        .mensaje-seguridad {
+            text-align: center;
+            color: #6b7280;
+            margin-top: 15vh;
+            padding: 20px;
+            display: block; /* Visible por defecto */
+        }
+
+        /* 2. EL PRESUPUESTO (OCULTO POR DEFECTO) */
+        .presupuesto-wrapper {
+            display: none; /* Invisible hasta que se llame al ID */
+            width: 100%;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 3. CUANDO EL LINK TIENE EL HASH CORRECTO (#sec-...) */
+        .presupuesto-wrapper:target {
+            display: flex; /* Se muestra */
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* 4. EL TRUCO: Si el presupuesto es el 'target', OCULTA el mensaje de seguridad */
+        body:has(.presupuesto-wrapper:target) .mensaje-seguridad {
+            display: none !important;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- ESTILOS VISUALES DEL DOCUMENTO --- */
+        .main-container {
+            background: white;
+            width: 100%; max-width: 1150px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 8px; overflow: hidden;
+        }
+
+        /* Tablas */
+        table { border-collapse: collapse; width: 100%; }
+        td, th { padding: 15px; vertical-align: top; }
+
+        /* Header */
+        .header-box { background-color: #0b1120; color: white; padding: 30px; border-bottom: 4px solid #0ea5e9; }
+        .logo-main { font-size: 28px; font-weight: 800; letter-spacing: -1px; color: white; margin-bottom: 5px; }
+        .logo-accent { color: #0ea5e9; }
+
+        /* Tipografías */
+        .doc-title { font-size: 22px; font-weight: 700; text-transform: uppercase; color: #0f172a; margin: 0; }
+        .doc-subtitle { font-size: 14px; color: #64748b; font-weight: 500; margin-top: 5px; }
+
+        /* Tabla Servicios */
+        .table-specs { border: 1px solid #e2e8f0; margin-bottom: 30px; width: 100%; }
+        .table-specs th { background-color: #f8fafc; text-align: left; font-weight: 700; font-size: 13px; text-transform: uppercase; color: #475569; border-bottom: 2px solid #e2e8f0; padding: 15px; }
+        .table-specs td { border-bottom: 1px solid #e2e8f0; padding: 20px 15px; }
+
+        /* Listas */
+        .index-title { font-weight: 700; color: #0b1120; font-size: 15px; margin-bottom: 10px; display: block; }
+        ul.specs-list { margin: 0; padding-left: 15px; list-style-type: none; }
+        ul.specs-list li { position: relative; margin-bottom: 6px; font-size: 14px; }
+        ul.specs-list li::before { content: "•"; color: #0ea5e9; font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; }
+
+        /* Badges */
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge-blue { background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; }
+        .badge-green { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .badge-dark { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
+
+        /* Footer */
+        .total-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 25px; }
+        .meta-info-container { background: #f8fafc; padding: 15px; border-radius: 6px; display: inline-block; width: 100%; box-sizing: border-box; }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media screen and (max-width: 768px) {
+            .responsive-table, .responsive-table tbody, .responsive-table tr, .responsive-table td { display: block; width: 100% !important; box-sizing: border-box; }
+            .header-content { text-align: center; }
+            .header-contact { text-align: center !important; margin-top: 15px; }
+            .header-box { padding: 20px; }
+            .doc-title { font-size: 19px; margin-top: 5px; }
+            
+            /* Transformar tabla a tarjetas */
+            .table-specs thead { display: none; }
+            .table-specs { border: none; }
+            .table-specs tr { margin-bottom: 20px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; display: flex; flex-direction: column; box-shadow: 0 4px 6px rgba(0,0,0,0.03); }
+            .table-specs td { border: none; padding: 20px; }
+            
+            .col-desc { order: 1; border-bottom: 1px dashed #e2e8f0 !important; }
+            .col-meta { order: 2; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 0 0 8px 8px; }
+            
+            .footer-layout td { display: block; width: 100%; padding: 0; }
+            .notes-section { margin-bottom: 25px; }
+            .mobile-badge-area { text-align: left !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mensaje-seguridad">
+        <h2 style="color: #1f2937;">Acceso Restringido</h2>
+        <p>Se requiere un enlace directo válido para visualizar el documento.</p>
+        <a href="/" style="color: #0ea5e9; text-decoration: none; font-weight: bold;">Volver al inicio</a>
+    </div>
+
+    <div id="sec-2025-38" class="presupuesto-wrapper">
+        
+        <div class="main-container">
+            <div class="header-box">
+                <table border="0" cellspacing="0" cellpadding="0" class="responsive-table">
+                    <tr>
+                        <td class="header-content" style="padding:0;">
+                            <div class="logo-main">MAZZI<span class="logo-accent">IT</span></div>
+                            <div style="font-size: 13px; color: #94a3b8; letter-spacing: 1px; text-transform: uppercase;">Solutions & Infrastructure</div>
+                        </td>
+                        <td class="header-contact" style="text-align: right; color: #cbd5e1; font-size: 13px; padding:0;">
+                            <strong>Mazzi IT Solutions</strong><br>
+                            Mar del Plata, Buenos Aires<br>
+                            ianmazzi.com.ar
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="padding: 30px;">
+                <table border="0" cellspacing="0" cellpadding="0" class="responsive-table meta-table" style="margin-bottom: 30px;">
+                    <tr>
+                        <td width="60%">
+                            <h1 class="doc-title">Propuesta Técnica y Económica</h1>
+                            <div class="doc-subtitle">Ref: Despliegue de Infraestructura - Servidor de Minecraft: TWWOM Legacy</div>
+                        </td>
+                        <td width="40%" style="text-align: right;">
+                            <div class="meta-info-container">
+                                <table border="0" cellspacing="0" cellpadding="2" style="font-size: 13px;">
+                                    <tr><td style="color: #64748b; padding: 2px;">Presupuesto N°:</td><td style="font-weight: 700; text-align: right; padding: 2px;">SEC #2025-38</td></tr>
+                                    <tr><td style="color: #64748b; padding: 2px;">Fecha:</td><td style="text-align: right; padding: 2px;">27 Nov, 2025</td></tr>
+                                    <tr><td style="color: #64748b; padding: 2px;">Validez:</td><td style="text-align: right; padding: 2px;">7 días</td></tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="table-specs responsive-table" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th width="70%">DESCRIPCIÓN DEL ALCANCE TÉCNICO</th>
+                            <th width="15%" style="text-align: center;">MODALIDAD</th>
+                            <th width="15%" style="text-align: right;">INVERSIÓN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-desc">
+                                <span class="index-title">1. DESPLIEGUE INICIAL & CIBERSEGURIDAD</span>
+                                <div style="margin-top: 6px; margin-bottom: 4px;"><strong>A. Core & Virtualización</strong></div>
+                                <ul class="specs-list">
+                                    <li>Instalación de <strong>Ubuntu Server LTS</strong> (Kernel Hardened).</li>
+                                    <li>Despliegue de Panel <strong>Pterodactyl</strong> (Dockerizado).</li>
+                                    <li>Configuración de instancia <strong>PaperMC</strong> optimizada + SFTP.</li>
+                                </ul>
+                                <div style="margin-top: 12px; margin-bottom: 4px;"><strong>B. Seguridad Perimetral (Cloudflare)</strong></div>
+                                <ul class="specs-list">
+                                    <li><strong>Origin IP Hiding:</strong> Enmascaramiento de IP (Proxying).</li>
+                                    <li><strong>WAF & Anti-DDoS:</strong> Reglas L4/L7.</li>
+                                    <li><strong>DNS Engineering:</strong> Zonas y registros SRV.</li>
+                                    <li><strong>SSL/TLS:</strong> Encriptación estricta (HTTPS).</li>
+                                </ul>
+                            </td>
+                            <td colspan="2" class="col-meta">
+                                <div class="mobile-badge-area" style="flex: 1; text-align: center;">
+                                    <span class="badge badge-blue">SETUP FEE</span>
+                                    <div style="font-size: 11px; color: #64748b; margin-top:4px;">Pago Único</div>
+                                </div>
+                                <div style="flex: 1; text-align: right; font-size: 16px; font-weight: 700; color: #0b1120;">USD 250.00</div>
+                            </td>
+                            <td style="display:none;"></td> 
+                        </tr>
+                        <tr>
+                            <td class="col-desc">
+                                <span class="index-title">2. INFRAESTRUCTURA & OPERACIONES</span>
+                                <div style="margin-top: 6px; margin-bottom: 4px;"><strong>A. Hardware Dedicado Enterprise</strong></div>
+                                <ul class="specs-list">
+                                    <li>CPU: <strong>Intel Xeon W-1270</strong>.</li>
+                                    <li>RAM: <strong>24GB DDR4 ECC</strong>.</li>
+                                    <li>Storage: <strong>512GB NVMe SSD</strong>.</li>
+                                    <li>Uplink: 1 Gbps Dedicado.</li>
+                                </ul>
+                                <div style="margin-top: 12px; margin-bottom: 4px;"><strong>B. Servicios Gestionados</strong></div>
+                                <ul class="specs-list">
+                                    <li><span class="badge badge-dark">ISO 27001</span> Gestión alineada a estándares.</li>
+                                    <li><strong>Monitoreo Activo:</strong> 24/7 Packet Loss y Latencia.</li>
+                                    <li><strong>Backups 3-2-1:</strong> Snapshots + Replicación Offsite.</li>
+                                    <li><strong>Soporte:</strong> Sistema de Tickets.</li>
+                                </ul>
+                                <div style="margin-top: 12px; margin-bottom: 4px;"><strong>C. Hosting Web</strong> <span class="badge badge-green">BONIFICADO</span></div>
+                                <ul class="specs-list"><li>Alojamiento web + SSL.</li></ul>
+                            </td>
+                            <td colspan="2" class="col-meta">
+                                <div class="mobile-badge-area" style="flex: 1; text-align: center;">
+                                    <span class="badge badge-blue">ANUAL</span>
+                                    <div style="font-size: 11px; color: #64748b; margin-top:4px;">Recurrente</div>
+                                </div>
+                                <div style="flex: 1; text-align: right; font-size: 16px; font-weight: 700; color: #0b1120;">USD 400.00</div>
+                            </td>
+                            <td style="display:none;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table border="0" cellspacing="0" cellpadding="0" class="responsive-table footer-layout">
+                    <tr>
+                        <td width="55%" style="vertical-align: bottom;" class="notes-section">
+                            <div style="font-size: 13px; color: #64748b; background: #f8fafc; padding: 20px; border-radius: 6px;">
+                                <strong>Notas de Servicio:</strong><br>
+                                <div style="margin-top: 8px; line-height: 1.6;">
+                                    1. Monitoreo incluye alertas proactivas.<br>
+                                    2. Bonificación de Hosting sujeta a plan anual.<br>
+                                    3. Precios en USD o cotización BNA al día del pago.
+                                </div>
+                            </div>
+                        </td>
+                        <td width="5%"></td>
+                        <td width="40%">
+                            <div class="total-box">
+                                <table border="0" cellspacing="0" cellpadding="4" style="font-size: 14px;">
+                                    <tr><td style="text-align: right; color: #64748b;">Setup & Sec:</td><td style="text-align: right; font-weight: 600;">$250.00</td></tr>
+                                    <tr><td style="text-align: right; color: #64748b;">Plan Anual:</td><td style="text-align: right; font-weight: 600;">$400.00</td></tr>
+                                    <tr>
+                                        <td style="text-align: right; padding-top: 15px; border-top: 1px solid #e2e8f0;">
+                                            <span style="text-transform: uppercase; font-size: 11px; font-weight: 700; color: #0b1120;">Total Propuesta</span>
+                                        </td>
+                                        <td style="text-align: right; padding-top: 15px; border-top: 1px solid #e2e8f0;">
+                                            <span style="font-size: 24px; font-weight: 800; color: #0b1120;">USD 650.00</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

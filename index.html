@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mazzi IT | Soluciones Tecnológicas Integrales</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0b1120; /* Fondo un poco más profundo */
+            --card-bg: #1e293b;
+            --primary: #0ea5e9; /* Azul Sky brillante */
+            --accent: #6366f1; /* Indigo */
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- UTILIDADES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(11, 17, 32, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-main);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.08), transparent 25%),
+                radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.08), transparent 25%);
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .hero-content h1 span {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+        }
+
+        /* --- SERVICES GRID --- */
+        .services {
+            padding: 100px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(14, 165, 233, 0.3);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: rgba(14, 165, 233, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+
+        .icon-box i {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* --- FEATURE: RACKS & INFRA --- */
+        .infra-section {
+            padding: 100px 0;
+            background: #0f172a;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .infra-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .infra-text h2 {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .infra-text ul {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .infra-text ul li {
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .infra-text ul li i {
+            color: var(--primary);
+            background: rgba(14, 165, 233, 0.1);
+            padding: 5px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+
+/* --- AGREGA ESTE CÓDIGO CSS NUEVO --- */
+
+/* Esto asegura que la imagen llene el contenedor sin deformarse */
+.img-cover {
+    width: 100%;
+    height: 100%;
+    /* Esta es la propiedad mágica: recorta la imagen para que llene el espacio */
+    object-fit: cover; 
+    /* Opcional: si tu foto es muy brillante, esto la oscurece un poco para que combine con la web */
+    filter: brightness(0.8); 
+}
+
+/* Pequeño ajuste al contenedor padre para asegurar que la imagen respete los bordes redondeados */
+.infra-visual {
+    /* Asegúrate de que esta línea exista en la regla .infra-visual que ya tenías */
+    overflow: hidden; 
+    /* Quitamos el padding si lo tuviera para que la imagen toque los bordes */
+    padding: 0;
+    border-radius: 10%;
+}
+
+        /* --- CONTACT --- */
+        .contact {
+            padding: 100px 0;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 50px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+        }
+
+        .contact-form {
+            padding: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: #0f172a;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 60px 0 30px;
+            background: #020617;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-logo span { color: var(--primary); }
+
+        /* --- ANIMATIONS --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .contact-container { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 3rem; }
+            .infra-content { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 75px;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fa-solid fa-network-wired"></i> MAZZI<span>IT</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#servicios">Soluciones</a></li>
+                    <li><a href="#infra">Infraestructura</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="container hero-content fade-in">
+            <h1>Potencia tu empresa con <br><span>Mazzi IT</span></h1>
+            <p>Especialistas en Administración de Sistemas, Redes y Hardware Crítico. <br>Hacemos que tu tecnología trabaje para vos, no al revés.</p>
+            <div style="margin-top: 30px;">
+                <a href="#contacto" class="btn">Cotizar Proyecto</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="services">
+        <div class="container">
+            <h2 class="fade-in">Catálogo de Servicios</h2>
+            <p class="section-subtitle fade-in">Cobertura técnica integral para pymes y grandes infraestructuras.</p>
+            
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="icon-box"><i class="fa-solid fa-server"></i></div>
+                    <h3>SysAdmin & Hosting</h3>
+                    <p>Gestión de servidores Linux/Windows. Despliegue de servicios, virtualización (Proxmox/VMware) y alquiler de equipos dedicados.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="icon-box"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <h3>Soporte Técnico IT</h3>
+                    <p>Mesa de ayuda ágil. Resolución de problemas de hardware y software para mantener a tu equipo operativo 24/7.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="icon-box"><i class="fa-solid fa-ethernet"></i></div>
+                    <h3>Redes & Racks</h3>
+                    <p>Armado profesional de racks, gestión de cableado estructurado y configuración de switches/routers (Cisco, Mikrotik, Ubiquiti).</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="icon-box"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                    <h3>Backups & Seguridad</h3>
+                    <p>Circuitos de copias de seguridad automáticas (3-2-1). Protección perimetral y recuperación ante desastres.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="icon-box"><i class="fa-solid fa-building"></i></div>
+                    <h3>Implementaciones</h3>
+                    <p>Despliegue tecnológico en edificios y oficinas: Control de accesos, CCTV IP, Telefonía VoIP y WiFi corporativo.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="icon-box"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3>Consultoría IT</h3>
+                    <p>Auditoría de infraestructura actual y planificación de mejoras para optimizar costos y rendimiento.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="infra" class="infra-section">
+        <div class="container">
+            <div class="infra-content">
+                <div class="infra-text fade-in">
+                    <h2>Expertos en <br><span>Hardware & Software</span></h2>
+                    <p>En Mazzi IT entendemos que la nube vive en servidores físicos. Nos encargamos de que la base de tu negocio sea sólida.</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i> Ordenamiento y peinado de Racks.</li>
+                        <li><i class="fa-solid fa-check"></i> Instalación de UPS y gestión de energía.</li>
+                        <li><i class="fa-solid fa-check"></i> Montaje de servidores en Data Center.</li>
+                        <li><i class="fa-solid fa-check"></i> Certificación de puntos de red.</li>
+                    </ul>
+                    <a href="#contacto" class="btn" style="margin-top: 20px;">Ver Casos de Éxito</a>
+                </div>
+                <div class="infra-visual fade-in">
+                <img src="Datacenter.jpg" alt="Infraestructura Datacenter" class="img-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="contact">
+        <div class="container fade-in">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contactar a Mazzi IT</h3>
+                    <p style="margin-bottom: 30px; opacity: 0.9;">Estamos listos para resolver tus desafíos tecnológicos. Escríbenos.</p>
+                    
+                    <div class="info-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>contacto@ianmazzi.com.ar</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Mar del Plata, Buenos Aires, Argentina</span>
+                    </div>
+                </div>
+
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label>Tu Nombre</label>
+                        <input type="text" placeholder="Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" placeholder="juan@empresa.com">
+                    </div>
+                    <div class="form-group">
+                        <label>¿En qué podemos ayudarte?</label>
+                        <select style="width: 100%; padding: 15px; background: #0f172a; border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 8px;">
+                            <option>Soporte IT General</option>
+                            <option>Administración de Servidores</option>
+                            <option>Armado de Rack / Cableado</option>
+                            <option>Hosting / VPS</option>
+                            <option>Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Mensaje</label>
+                        <textarea rows="4" placeholder="Necesito mejorar mi infraestructura..."></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Enviar Mensaje</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">MAZZI<span>IT</span></div>
+            <p>&copy; 2024 Mazzi IT Solutions. Potenciando negocios.</p>
+            <div style="margin-top: 20px; font-size: 1.3rem;">
+                <i class="fa-brands fa-instagram" style="margin: 0 15px; cursor:pointer; color: white;"></i>
+                <i class="fa-brands fa-linkedin" style="margin: 0 15px; cursor:pointer; color: white;"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menú Hamburguesa
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Animaciones al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Formulario (Demo)
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Mensaje enviado a Mazzi IT.');
+        });
+    </script>
+</body>
+</html>
