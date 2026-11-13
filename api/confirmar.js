@@ -26,7 +26,7 @@ module.exports = async function (req, res) {
         }
     });
 
-    // Diseño del correo electrónico con el detalle actualizado del presupuesto
+    // Diseño del correo electrónico con el detalle actualizado del presupuesto y aviso legal
     const emailHTML = `
         <div style="font-family: 'Segoe UI', Helvetica, Arial, sans-serif; color: #334155; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;">
             
@@ -37,7 +37,7 @@ module.exports = async function (req, res) {
             </div>
             
             <!-- Cuerpo del Correo -->
-            <div style="padding: 30px;">
+            <div style="padding: 30px; padding-bottom: 15px;">
                 <h3 style="color: #0f172a; margin-top: 0;">¡Hola!</h3>
                 <p style="line-height: 1.5;">Confirmamos la aceptación formal del presupuesto <strong>${presupuesto_id}</strong>. A continuación, detallamos las condiciones y los alcances técnicos acordados para que quede constancia del servicio:</p>
                 
@@ -86,6 +86,14 @@ module.exports = async function (req, res) {
                     Saludos cordiales,<br>
                     <strong style="color: #0f172a;">Ian Mazzi</strong><br>
                     <span style="color: #64748b;">Mazzi IT Solutions</span>
+                </p>
+            </div>
+            
+            <!-- Aviso Legal de Emisión Automática -->
+            <div style="background-color: #f1f5f9; padding: 20px; border-top: 1px solid #e2e8f0; font-size: 11px; color: #64748b; text-align: center;">
+                <p style="margin: 0; line-height: 1.6;">
+                    <strong>Aviso de constancia electrónica:</strong> Este correo ha sido generado y emitido de forma automática tras la confirmación y aceptación explícita de los términos detallados, accionada mediante el botón <em>"Confirmar Presupuesto & Condiciones"</em> en el documento digital alojado en:<br>
+                    <a href="https://www.ianmazzi.com.ar/presupuesto#sec-2026-13" style="color: #0ea5e9; text-decoration: none;">https://www.ianmazzi.com.ar/presupuesto#sec-2026-13</a>
                 </p>
             </div>
         </div>
