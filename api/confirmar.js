@@ -57,7 +57,6 @@ module.exports = async function (req, res) {
                     <ul style="font-size: 13px; color: #475569; margin-top: 0; padding-left: 20px; line-height: 1.6;">
                         <li>Monitoreo Activo 24/7 y Gestión de Seguridad (ISO 27001).</li>
                         <li>Backups 3-2-1 profesional con espacio ilimitado.</li>
-                        <li>Hosting Web Corporativo Bonificado (Alojamiento + SSL).</li>
                     </ul>
 
                     <p style="font-size: 14px; margin-bottom: 5px; margin-top: 15px; color: #0f172a;"><strong>3. Acuerdo Comercial & Desarrollo (Partnership)</strong></p>
@@ -78,13 +77,11 @@ module.exports = async function (req, res) {
                     
                     <h3 style="margin: 0; text-align: right; color: #0f172a; font-size: 18px;">Total Renovación: USD 400.00</h3>
                 </div>
-
-                <p style="line-height: 1.5;">En breve me pondré en contacto para coordinar los próximos pasos operativos y comenzar con las tareas de administración.</p>
                 
                 <!-- Footer / Firma -->
                 <p style="margin-bottom: 0; margin-top: 30px; line-height: 1.5; font-size: 14px;">
                     Saludos cordiales,<br>
-                    <strong style="color: #0f172a;">Ian Mazzi</strong><br>
+                    <strong style="color: #0f172a;">Ian Mazzini</strong><br>
                     <span style="color: #64748b;">Mazzi IT Solutions</span>
                 </p>
             </div>
